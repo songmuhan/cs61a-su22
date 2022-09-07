@@ -132,8 +132,13 @@ def cycle(f1, f2, f3):
     """
     "*** YOUR CODE HERE ***"
     def function(n): 
-        "this function take n as its argument"
+        "function take n  as its argument"
         def cycleFunction(x):
+            """
+            cycleFunction do the actual cycle process, be careful to increase counter i
+            i initialize i as 1, because this function just return x when n = 0
+                and it's easy to use % 3 to control the process 
+            """
             i = 1
             while i <= n:
                 if i % 3 == 1:
