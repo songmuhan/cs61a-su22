@@ -14,7 +14,7 @@ def a_plus_abs_b(a, b):
     3
     """
     if b < 0:
-        f = sub 
+        f = sub
     else:
         f = add
     return f(a, b)
@@ -44,7 +44,7 @@ def two_of_three(i, j, k):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return i * i + j * j + k * k - max(i,j,k)**2 
+    return i * i + j * j + k * k - max(i,j,k)**2
 
 
 def two_of_three_syntax_check():

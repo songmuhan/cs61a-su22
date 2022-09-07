@@ -1,5 +1,6 @@
 - Lab
    - [x] Lab00
    - [x] Lab01
+   - [x] Lab02
 - Homework
   - [x] Hw01  
