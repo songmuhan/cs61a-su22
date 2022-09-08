@@ -2,8 +2,8 @@
    - [x] Lab00
    - [x] Lab01
    - [x] Lab02
-   - [ ] Lab03
+   - [x] Lab03
 - Homework
   - [x] Hw01  
   - [x] Hw02
-  - [ ] Hw03
+  - [x] Hw03
