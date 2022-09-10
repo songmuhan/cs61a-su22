@@ -1,0 +1,24 @@
+{
+    "name": "Homework 4",
+    "endpoint": "cal/cs61a/su22/hw04",
+    "src": [
+        "hw04.py"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "merge",
+        "remove_odd_indices",
+        "SmartFridge",
+        "VendingMachine"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "grading",
+        "backup"
+    ]
+}
