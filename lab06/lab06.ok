@@ -1,0 +1,25 @@
+{
+    "name": "Lab 6",
+    "endpoint": "cal/cs61a/su22/lab06",
+    "src": [
+        "lab06.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "iterators-wwpd",
+        "count_occurrences",
+        "scale",
+        "hailstone"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "unlock",
+        "grading",
+        "backup"
+    ]
+}
