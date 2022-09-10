@@ -18,6 +18,13 @@ def flatten(s):
     [[1, [1, 1]], 1, [1, 1]]
     """
     "*** YOUR CODE HERE ***"
+    lst = []
+    for ele in s:
+        if type(ele) == list:
+            lst += flatten(ele)
+        else:
+            lst.append(ele)
+    return lst
 
 
 def insert_items(lst, entry, elem):
@@ -46,7 +53,15 @@ def insert_items(lst, entry, elem):
     ...       ['List', 'ListComp', 'Slice'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    i = 0
+    while True:
+        if i == len(lst):
+            break
+        elif lst[i] == entry:
+            lst.insert(i + 1, elem)
+            i += 1
+        i += 1
+    return lst
 
 
 class Minty:
@@ -73,15 +88,16 @@ class Minty:
     115
     """
     present_year = 2021
-
     def __init__(self):
         self.update()
 
     def create(self, type):
         "*** YOUR CODE HERE ***"
+        return Coin(self.year, type)
 
     def update(self):
         "*** YOUR CODE HERE ***"
+        self.year = self.present_year
 
 
 class Coin:
@@ -89,9 +105,15 @@ class Coin:
 
     def __init__(self, year, type):
         "*** YOUR CODE HERE ***"
+        self.year = year
+        if type == "Dime":
+            self.cents = 10
+        elif type == "Nickel":
+            self.cents = 5
 
     def worth(self):
         "*** YOUR CODE HERE ***"
+        return self.cents + max(0,Minty.present_year - self.year - 50)
 
 
 def couple(s, t):
@@ -108,6 +130,10 @@ def couple(s, t):
     """
     assert len(s) == len(t)
     "*** YOUR CODE HERE ***"
+    lst = []
+    for i in range(len(s)):
+        lst.append([s[i], t[i]])
+    return lst
 
 
 def change_abstraction(change):

@@ -10,45 +10,35 @@ test = {
           >>> # If the code would error, type Error
           >>> lst = [5, 6, 7, 8]
           >>> lst.append(6)
-          5c5b429063049b010ee9d6da4aff0f09
-          # locked
+          Nothing
           >>> lst
-          8479bcf7fd6e046c0ee92e37bd0bd1c5
-          # locked
+          [5, 6, 7, 8, 6]
           >>> lst.insert(0, 9)
           >>> lst
-          34540cad83a3fb7bcbb40cf99a050929
-          # locked
+          [9, 5, 6, 7, 8, 6]
           >>> x = lst.pop(2)
           >>> lst
-          8523dc04d1767396bf99d8d5f2753450
-          # locked
+          [9, 5, 7, 8, 6]
           >>> lst.remove(x)
           >>> lst
-          92986ceb5cb04366cd52ed70547eb7cc
-          # locked
+          [9, 5, 7, 8]
           >>> a, b = lst, lst[:]
           >>> a is lst
-          46d1f016b6482a76a74835354edaab71
-          # locked
+          True
           >>> b == lst
-          46d1f016b6482a76a74835354edaab71
-          # locked
+          True
           >>> b is lst
-          61e74011ca20035e5cb51b814087a093
-          # locked
+          False
           >>> lst = [1, 2, 3]
           >>> lst.extend([4,5])
           >>> lst
-          7d241a7117321fe8224337cd04bcaeea
-          # locked
+          [1, 2, 3, 4, 5]
           >>> lst.extend([lst.append(9), lst.append(10)])
           >>> lst
-          1609c78512e62bce90ba1e915f99f5a8
-          # locked
+          [1, 2, 3, 4, 5, 9, 10, None, None]
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         }
       ],
