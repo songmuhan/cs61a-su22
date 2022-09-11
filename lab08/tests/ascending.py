@@ -7,41 +7,37 @@ test = {
         {
           'code': r"""
           scm> (ascending? '(1 2 3 4 5))  ; #t or #f
-          61e66592bf67fa9271ff8949e03b640a
-          # locked
+          #t
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           scm> (ascending? '(1 5 2 4 3))  ; #t or #f
-          819754a8855b4dc4ac5aaafaca9d759f
-          # locked
+          #f
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           scm> (ascending? '(2 2))  ; #t or #f
-          61e66592bf67fa9271ff8949e03b640a
-          # locked
+          #t
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           scm> (ascending? '(1 2 2 4 3))  ; #t or #f
-          819754a8855b4dc4ac5aaafaca9d759f
-          # locked
+          #f
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         }
       ],
