@@ -1,0 +1,25 @@
+{
+    "name": "Lab 7",
+    "endpoint": "cal/cs61a/su22/lab07",
+    "src": [
+        "lab07.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "trees-wwpd",
+        "store_digits",
+        "every_other",
+        "cumulative_mul"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}
