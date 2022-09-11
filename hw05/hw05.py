@@ -58,6 +58,17 @@ def add_d_leaves(t, v):
     """
     "*** YOUR CODE HERE ***"
 
+    def add_leaf(tree, depth):
+        if tree.is_leaf():
+            tree.branches.extend([Tree(v)] * depth)
+            return
+        else:
+            for subtree in tree.branches:
+                add_leaf(subtree,depth+1)
+            tree.branches.extend([Tree(v)] * depth)
+            return
+    add_leaf(t, 0)
+
 
 def has_path(t, target):
     """Return whether there is a path in a Tree where the entries along the path
@@ -91,7 +102,15 @@ def has_path(t, target):
     """
     assert len(target) > 0, 'no path for empty target.'
     "*** YOUR CODE HERE ***"
-
+    if t.label != target[0]:
+        return False
+    elif t.label == target:
+        return True
+    else:
+        for subtree in t.branches:
+            if has_path(subtree, target[1:]):
+                return True
+        return False
 
 def duplicate_link(lnk, val):
     """Mutates `lnk` such that if there is a linked list
@@ -113,6 +132,14 @@ def duplicate_link(lnk, val):
     Link(1, Link(2, Link(2, Link(2, Link(2, Link(3))))))
     """
     "*** YOUR CODE HERE ***"
+    while not (lnk is Link.empty):
+        if lnk.first == val:
+            lnk.rest = Link(val,lnk.rest)
+            lnk = lnk.rest.rest
+        else:
+            lnk = lnk.rest
+
+
 
 
 def deep_map(f, link):
@@ -121,14 +148,33 @@ def deep_map(f, link):
     apply f inside that linked list as well.
 
     >>> s = Link(1, Link(Link(2, Link(3)), Link(4)))
-    >>> print(deep_map(lambda x: x * x, s))
-    <1 <4 9> 16>
-    >>> print(s) # unchanged
-    <1 <2 3> 4>
     >>> print(deep_map(lambda x: 2 * x, Link(s, Link(Link(Link(5))))))
     <<2 <4 6> 8> <<10>>>
     """
     "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        return
+    elif isinstance(link.first, int):
+        return Link(f(link.first)) if link.rest is Link.empty else Link(f(link.first), deep_map(f,link.rest))
+    elif isinstance(link.first, Link):
+        return Link(deep_map(f, link.first)) if link.rest is Link.empty else Link(deep_map(f, link.first), deep_map(f, link.rest))
+    """
+    first attempt:
+    
+    if link is Link.empty:
+        return 
+    else:
+        if isinstance(link.first, int) and (not (link.rest is Link.empty)):
+            return Link(f(link.first), deep_map(f, link.rest))
+        elif isinstance(link.first, int) and (link.rest is Link.empty):
+            return Link(f(link.first))
+        elif isinstance(link.first, Link) and (not (link.rest is Link.empty)):
+            my_link = deep_map(f, link.first)
+            return Link(my_link, deep_map(f, link.rest))
+        else:
+            return Link(deep_map(f, link.first))
+    """
+
 
 
 class Tree:
@@ -164,6 +210,7 @@ class Tree:
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()
 
 

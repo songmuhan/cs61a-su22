@@ -1,0 +1,26 @@
+{
+    "name": "Lab 8",
+    "endpoint": "cal/cs61a/su22/lab08",
+    "src": [
+        "lab08.scm"
+    ],
+    "tests": {
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "combinations",
+        "wwsd_lists",
+        "over_or_under",
+        "composed",
+        "pow",
+        "ascending"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}

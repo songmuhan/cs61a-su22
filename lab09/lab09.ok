@@ -1,0 +1,25 @@
+{
+    "name": "Lab 09",
+    "endpoint": "cal/cs61a/su22/lab09",
+    "src": [
+        "buffer.py",
+        "scheme_reader.py"
+    ],
+    "tests": {
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "buffer",
+        "scheme_read",
+        "quote",
+        "tail-replicate"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}
