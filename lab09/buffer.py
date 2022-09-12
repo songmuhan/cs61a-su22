@@ -54,19 +54,25 @@ class Buffer:
         exhausted its source, returns None."""
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        my_token = self.current()
+        self.index += 1
+     #   print("pop_first -> " + str(my_token))
+        return my_token
+
         # END PROBLEM 1
 
     def current(self):
         """Return the current element, or None if none exists."""
-        while _________:
+        while not(self.more_on_line()):
             try:
                 # BEGIN PROBLEM 1
-                "*** YOUR CODE HERE ***"
+                self.current_line = next(self.source)
+                self.index = 0
                 # END PROBLEM 1
             except StopIteration:
                 self.current_line = ()
                 return None
-        return __________
+        return self.current_line[self.index]
 
     def more_on_line(self):
         return self.index < len(self.current_line)
@@ -108,3 +114,21 @@ class LineReader:
                 self.prompt = ' ' * len(self.prompt)
             yield line
         raise EOFError
+buf = Buffer(iter([['(', '+'], [15], [12, ')']]))
+buf.pop_first()
+'('
+buf.pop_first()
+'+'
+buf.current()
+15
+buf.current()   # Calling current twice should not change buf
+15
+buf.pop_first()
+15
+buf.current()
+12
+buf.pop_first()
+12
+buf.pop_first()
+')'
+buf.pop_first()  # returns None

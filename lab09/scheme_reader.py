@@ -24,6 +24,7 @@ from scheme_tokens import tokenize_lines, DELIMITERS
 from buffer import Buffer, InputReader, LineReader
 from pair import Pair, nil
 
+
 # Scheme list parser
 
 
@@ -44,15 +45,17 @@ def scheme_read(src):
     val = src.pop_first()  # Get and remove the first token
     if val == 'nil':
         # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
+        return nil
         # END PROBLEM 2
     elif val == '(':
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        return read_tail(src)
         # END PROBLEM 2
     elif val == "'":
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        return Pair('quote', Pair(scheme_read(src),nil))
         # END PROBLEM 3
     elif val not in DELIMITERS:
         return val
@@ -69,18 +72,23 @@ def read_tail(src):
     Pair(2, Pair(3, nil))
     """
     try:
+     #   print("read_tail -> " + str(src.current()))
         if src.current() is None:
             raise SyntaxError('unexpected end of file')
         elif src.current() == ')':
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
+            src.pop_first()
+            return nil
             # END PROBLEM 2
         else:
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
+            return Pair(scheme_read(src), read_tail(src))
             # END PROBLEM 2
     except EOFError:
         raise SyntaxError('unexpected end of file')
+
 
 # Convenience methods
 
@@ -108,6 +116,7 @@ def read_line(line):
     if buf.more_on_line():
         raise SyntaxError("read_line's argument can only be a single element, but received multiple")
     return result
+
 
 # Interactive loop
 
