@@ -7,21 +7,19 @@ test = {
         {
           'code': r"""
           scm> (concatenate (list (list 1 2) (list 5 1)))
-          3d4c7ecb4acfaf693aa03b7427dad047
-          # locked
+          (1 2 5 1)
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           scm> (concatenate (list (list 1 2) (list)))
-          c96202ad0aa1f77601870e46735eabbd
-          # locked
+          (1 2)
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -30,17 +28,14 @@ test = {
           ....   (if (= n 0)
           ....       so-far
           ....       (tail-list (- n 1) (cons 1 so-far)))) ; What does scheme return after a `define` statement?
-          f78cf18d5af5423c2aee0ccd66948c3d
-          # locked
+          tail-list
           scm> (define big-list (tail-list 500 '()))
-          075a5fc57934b88f3466d0a1ac677996
-          # locked
+          big-list
           scm> (define result (concatenate (list big-list (list 1 2 3 4)))) ; Test for tail recursion
-          5f671986309a3dd5da78c746300e0efa
-          # locked
+          result
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         }
       ],
