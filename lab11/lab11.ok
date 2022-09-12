@@ -1,0 +1,28 @@
+{
+    "name": "Lab 11",
+    "endpoint": "cal/cs61a/su22/lab11",
+    "src": [
+        "lab11.py",
+        "lab11.sql"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "wwrm",
+        "scientific_name",
+        "calculator_ops",
+        "bluedog",
+        "smallest-int-having",
+        "matchmaker"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Lab 10",
+    "endpoint": "cal/cs61a/su22/lab10",
+    "src": [
+        "lab10.scm"
+    ],
+    "tests": {
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "abstractions",
+        "teacher_student_selectors",
+        "student_attend_class",
+        "teacher_hold_class"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "grading",
+        "analytics",
+        "unlock",
+        "backup"
+    ]
+}
