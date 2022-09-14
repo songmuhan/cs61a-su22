@@ -21,4 +21,4 @@ def roman_numerals(text):
     >>> roman_numerals("he loves working in the LIVING room.")
     False
     """
-    return bool(re.search(__________, text))
+    return bool(re.search(r'\s[IVXLCDM]+(\s|\.|$)', text))

@@ -51,15 +51,16 @@ def prune_min(t):
     >>> t3
     Tree(6, [Tree(3, [Tree(1)])])
     """
-    if _____________:
+    if t.is_leaf():
         return
-    _____________
-    _____________
-    if _____________:
-        _____________
+    if len(t.branches) != 2:
+        return 
     else:
-        _____________
-    return  # return statement to block alternate from running
+        if t.branches[0].label < t.branches[1].label:
+            t.branches = [t.branches[0]]
+        else:
+            t.branches = [t.branches[1]]
+        prune_min(t.branches[0])
 
 
 def repeated(t, k):
@@ -84,7 +85,19 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
+    stored,counter = next(t),1
+    while counter != k:
+        now = next(t)
+        if now == stored:
+            counter += 1
+        else:
+            stored = now
+            counter = 1
+    return stored
+        
+        
+
+    
 
 
 def add_trees(t1, t2):
@@ -154,10 +167,10 @@ def address_oneline(text):
     >>> address_oneline("790 lowercase St")
     False
     """
-    block_number = r'___'
-    cardinal_dir = r'___'  # whitespace is important!
-    street = r'___'
-    type_abbr = r'___'
+    block_number = r'\d{3,5}'
+    cardinal_dir = r'([NSWE]\s)*'  # whitespace is important!
+    street = r'[A-Z]([A-Za-z]\s)*'
+    type_abbr = r'[A-Za-z]{2,5}\s'
     street_name = f"{cardinal_dir}{street}{type_abbr}"
     return bool(re.search(f"{block_number} {street_name}", text))
 
