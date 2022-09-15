@@ -7,41 +7,37 @@ test = {
         {
           'code': r"""
           >>> pigs_on_prime_strategy(15, 34, threshold=3, num_rolls=6)
-          962aea5f59fc55bd65ccacf4603c8f22
-          # locked
+          0
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime_strategy(30, 54, threshold=10, num_rolls=6)
-          327b19ffebddf93982e1ad2a4a6486f4
-          # locked
+          6
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime_strategy(19, 32, threshold=7, num_rolls=6)
-          962aea5f59fc55bd65ccacf4603c8f22
-          # locked
+          0
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime_strategy(24, 5, threshold=8, num_rolls=6)
-          327b19ffebddf93982e1ad2a4a6486f4
-          # locked
+          6
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {

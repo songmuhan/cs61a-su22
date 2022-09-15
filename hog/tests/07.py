@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': '6d36cf85dceafad42b3816d0df5734e3',
+          'answer': 'A player and a message (in that order).',
           'choices': [
             'A message.',
             'A player.',
@@ -13,7 +13,7 @@ test = {
             'A player and a message (in that order).'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What does a commentary function return?'
         }
@@ -53,13 +53,12 @@ test = {
           >>> def echo(s0, s1, player=None):
           ...     return player, f"{s0} {s1}" # message of the form: "s0 s1"
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(3), goal=6, say=echo) # Remember pigs on prime!
-          791e80e4872c37c0b77421f6211d8e54
-          6e3b797d0348d34c68cc3caeb6bc49f7
-          5a7d3511c2b271dc7566cdcc93c504e9
-          # locked
+          5 0
+          5 5
+          8 5
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -71,15 +70,14 @@ test = {
           ...         return curr_count + 1, str(curr_count) + " " + str(s0)
           ...     return say
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(5), goal=15, say=count(1))
-          65778d21a5651e6f07c0edda625d4d25
-          3ffe50afce5e5610d9cecba2a566c86d
-          721f0b1ab817deaa5cac39327411c19e
-          461ff541bd06a2e3310447d10cc6615b
-          0eae6eedf96692954917ccec3fde1e1a
-          # locked
+          1 7
+          2 7
+          3 12
+          4 12
+          5 19
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         }
       ],
@@ -101,14 +99,13 @@ test = {
           >>> strat0 = lambda score, opponent: 1 - opponent // 10
           >>> strat1 = always_roll(3)
           >>> s0, s1 = play(strat0, strat1, dice=make_test_dice(4, 2, 6), goal=15, say=echo)
-          f4d41f4e29a08f003e0a9a5473c61d5e
-          461ff541bd06a2e3310447d10cc6615b
-          ab92c2ead3d7b80c5e86a0a280dc94b5
-          f6e85b18fc8f82a2883888dfe553eba8
-          # locked
+          4 0
+          4 12
+          7 12
+          7 24
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -117,14 +114,13 @@ test = {
           >>> def total(s0, s1, player=None):
           ...     return player, str(s0 + s1)
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2, 5), goal=10, say=total)
-          16e2cf37e8254529473d9e0a36b75fcb
-          70e71b420a966665c548a3bb2cb30d7d
-          26dad951f8e75106f151e4085e117edd
-          25c20617047858d41b4c21bd68b1bd5b
-          # locked
+          3
+          10
+          14
+          19
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -135,16 +131,15 @@ test = {
           >>> def echo_1(s0, s1, player=None):
           ...     return player, f"** {s1}" # message of the form: "** s1"
           >>> s0, s1 = play(always_roll(1), always_roll(1), dice=make_test_dice(2), goal=5, say=both(echo_0, echo_1))
-          e58117f80b57e46a3f1b2fbf34c8d330
-          4a64fe964dc771a219ed773c3a146c75
-          e58117f80b57e46a3f1b2fbf34c8d330
-          24ba9ce1d94be52f2551b89d6547398c
-          85020533317ed0d716a2776b0db86a0e
-          24ba9ce1d94be52f2551b89d6547398c
-          # locked
+          * 3
+          ** 0
+          * 3
+          ** 3
+          * 7
+          ** 3
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {

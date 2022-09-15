@@ -7,52 +7,47 @@ test = {
         {
           'code': r"""
           >>> pigs_on_prime(25, 43)
-          962aea5f59fc55bd65ccacf4603c8f22
-          # locked
+          0
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime(7, 7) # Remember that we return the number of ADDITIONAL points the current player gains!
-          edcbd82ba98a8122be244fa325c62071
-          # locked
+          4
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime(32, 33)
-          962aea5f59fc55bd65ccacf4603c8f22
-          # locked
+          0
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> pigs_on_prime(11, 26)
-          46caef5ffd6d72c8757279cbcf01b12f
-          # locked
+          2
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> a = pigs_on_prime(5, 5)
           >>> a # check that the value is being returned, not printed
-          46caef5ffd6d72c8757279cbcf01b12f
-          # locked
+          2
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {

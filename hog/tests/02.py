@@ -7,32 +7,29 @@ test = {
         {
           'code': r"""
           >>> oink_points(5, 123)
-          43d176e102c8d95338faf8791aa509b3
-          # locked
+          1
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> oink_points(5, 584)
-          671d8bd6086d56a4f19cc0d378631021
-          # locked
+          12
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> a = oink_points(5, 123)
           >>> a # check that the value is being returned, not printed
-          43d176e102c8d95338faf8791aa509b3
-          # locked
+          1
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
