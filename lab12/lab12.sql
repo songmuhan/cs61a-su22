@@ -14,10 +14,8 @@ CREATE TABLE meals AS
 
 -- Pizza places that open before 1pm in alphabetical order
 CREATE TABLE opening AS
-SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
-
+ select name from pizzas where open < 13 order by name desc;
 
 -- Two meals at the same place
 CREATE TABLE double AS
-SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
-
+    select m1.meal,m2.meal,name from meals as m1, meals as m2, pizzas as p where m1.meal <> m2.meal and m2.time - 6 > m1.time and m1.time >= p.open and m2.time <= p.close;

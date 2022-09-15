@@ -22,16 +22,16 @@ def link_pop(lnk, index=-1):
     <1>
     '''
     if index == -1:
-        while ___________________:
-            ___________________
-        removed = ___________________
-        ___________________
+        while not (lnk.rest is Link.empty):
+            pre,lnk = lnk, lnk.rest
+        removed = lnk.first
+        pre.rest = Link.empty
     else:
-        while ___________________:
-            ___________________
-            ___________________
-        removed = ___________________
-        ___________________
+        while index:
+            pre,lnk = lnk,lnk.rest
+            index -= 1
+        removed = lnk.first
+        pre.rest = lnk.rest
     return removed
 
 
@@ -135,18 +135,18 @@ def add_trees(t1, t2):
         5
       5
     """
-    if _____________:
-        return _____________
-    if _____________:
-        return _____________
-    new_label = _____________
-    t1_branches, t2_branches = _____________
-    length_t1, length_t2 = _____________
-    if _____________:
-        _____________
-    elif _____________:
-        _____________
-    return _____________
+    if not t1:
+        return t2
+    if not t2:
+        return t1
+    new_label = t1.label + t2.label
+    t1_branches, t2_branches = t1.branches, t2.branches
+    length_t1, length_t2 = len(t1_branches), len(t2_branches)
+    if length_t1 < length_t2:
+        t1_branches += [None for _ in range(length_t1,length_t2)]
+    elif length_t2 < length_t1:
+        t2_branches += [None for _ in range(length_t2, length_t1)]
+    return Tree(new_label,[add_trees(t1_branch,t2_branch) for (t1_branch,t2_branch) in zip(t1_branches, t2_branches)])
 
 
 def address_oneline(text):
@@ -167,10 +167,10 @@ def address_oneline(text):
     >>> address_oneline("790 lowercase St")
     False
     """
-    block_number = r'\d{3,5}'
-    cardinal_dir = r'([NSWE]\s)*'  # whitespace is important!
-    street = r'[A-Z]([A-Za-z]\s)*'
-    type_abbr = r'[A-Za-z]{2,5}\s'
+    block_number = r"\d{3,5}"
+    cardinal_dir = r"([NEWS]\s)?" # whitespace is important!
+    street = r"([A-Z][A-Za-z]+\s)+"
+    type_abbr = r"[A-Z][a-z]{1,4}\b"
     street_name = f"{cardinal_dir}{street}{type_abbr}"
     return bool(re.search(f"{block_number} {street_name}", text))
 
@@ -232,10 +232,18 @@ class Player:
         self.popularity = 100
 
     def debate(self, other):
-        "*** YOUR CODE HERE ***"
+        if random() < max(0.1, self.popularity / (self.popularity + other.popularity)):
+            self.popularity += 50
+        else:
+            if self.popularity < 50:
+                self.popularity = 0
+            else:
+                self.popularity -= 50
 
     def speech(self, other):
-        "*** YOUR CODE HERE ***"
+        self.votes += self.popularity // 10
+        self.popularity += self.popularity // 10
+        other.popularity -= other.popularity // 10
 
     def choose(self, other):
         return self.speech
@@ -259,14 +267,23 @@ class Game:
 
     def play(self):
         while not self.game_over():
-            "*** YOUR CODE HERE ***"
+            if self.turn % 2 == 0:
+                self.p1.choose(self.p2)(self.p2)
+            else:
+                self.p2.choose(self.p1)(self.p1)
+            self.turn += 1
         return self.winner()
 
     def game_over(self):
         return max(self.p1.votes, self.p2.votes) >= 50 or self.turn >= 10
 
     def winner(self):
-        "*** YOUR CODE HERE ***"
+        if self.turn >= 10 and self.p1.votes == self.p2.votes:
+            return
+        if self.p1.votes > self.p2.votes:
+            return self.p1
+        else:
+            return self.p2
 
 
 # Phase 3: New Players
@@ -282,7 +299,11 @@ class AggressivePlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity <= other.popularity:
+            return self.debate
+        else:
+            return self.speech
+
 
 
 class CautiousPlayer(Player):
@@ -299,7 +320,10 @@ class CautiousPlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity == 0:
+            return self.debate
+        else:
+            return self.speech
 
 
 def intersection(lst_of_lsts):
@@ -321,6 +345,15 @@ def intersection(lst_of_lsts):
     """
     elements = []
     "*** YOUR CODE HERE ***"
+    first = lst_of_lsts[0]
+    for ele in first:
+        flag = True
+        for lst in lst_of_lsts:
+            if not (ele in lst):
+                flag = False
+        if flag:
+            elements.append(ele)
+    elements = list(set(elements))
     return elements
 
 
@@ -339,7 +372,7 @@ def deck(suits, ranks):
     []
     """
     "*** YOUR CODE HERE ***"
-    return ______
+    return [[x,y] for x in suits for y in ranks]
 
 
 class Link:
