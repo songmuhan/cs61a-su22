@@ -55,6 +55,8 @@ test = {
           SchemeError
           scm> (define-macro (name) (body))
           name
+          scm> name
+          (lambda () (body))
           scm> (name)
           SchemeError
           """,

@@ -1,12 +1,11 @@
-import sys
-import os
+import builtins
 
 from pair import *
-from ucb import main, trace
 
 
 class SchemeError(Exception):
     """Exception indicating an error in a Scheme program."""
+
 
 ################
 # Environments #
@@ -18,9 +17,8 @@ class Frame:
 
     def __init__(self, parent):
         """An empty frame with parent frame PARENT (which may be None)."""
-        # BEGIN Problem 1
-        "*** YOUR CODE HERE ***"
-        # END Problem 1
+        self.bindings = {}
+        self.parent = parent
 
     def __repr__(self):
         if self.parent is None:
@@ -30,13 +28,38 @@ class Frame:
 
     def define(self, symbol, value):
         """Define Scheme SYMBOL to have VALUE."""
-        # BEGIN Problem 1
+        # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
-        # END Problem 1
+        self.bindings[symbol] = value
+        # END PROBLEM 1
 
-    # BEGIN Problem 1
-    "*** YOUR CODE HERE ***"
-    # END Problem 1
+    def lookup(self, symbol):
+        """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
+        # BEGIN PROBLEM 1
+        if symbol in self.bindings.keys():
+            return self.bindings[symbol]
+        elif self.parent is not None:
+            return self.parent.lookup(symbol)
+        # END PROBLEM 1
+        raise SchemeError('unknown identifier: {0}'.format(symbol))
+
+    def make_child_frame(self, formals, vals):
+        """Return a new local frame whose parent is SELF, in which the symbols
+        in a Scheme list of formal parameters FORMALS are bound to the Scheme
+        values in the Scheme list VALS. Both FORMALS and VALS are represented
+        as Pairs. Raise an error if too many or too few vals are given.
+
+        >>> env = create_global_frame()
+        >>> formals, expressions = read_line('(a b c)'), read_line('(1 2 3)')
+        >>> env.make_child_frame(formals, expressions)
+        <{a: 1, b: 2, c: 3} -> <Global Frame>>
+        """
+        if len(formals) != len(vals):
+            raise SchemeError('Incorrect number of arguments to function call')
+        # BEGIN PROBLEM 8
+        "*** YOUR CODE HERE ***"
+        # END PROBLEM 8
+
 
 ##############
 # Procedures #
@@ -61,7 +84,6 @@ class BuiltinProcedure(Procedure):
 
 class LambdaProcedure(Procedure):
     """A procedure defined by a lambda expression or a define form."""
-    name = '[lambda]'  # Error tracing extension
 
     def __init__(self, formals, body, env):
         """A procedure with formal parameter list FORMALS (a Scheme list),
@@ -95,7 +117,6 @@ class MuProcedure(Procedure):
                     ||----w |
                     ||     ||
     """
-    name = '[mu]'  # Error tracing extension
 
     def __init__(self, formals, body):
         """A procedure with formal parameter list FORMALS (a Scheme list) and
