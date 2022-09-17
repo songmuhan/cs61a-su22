@@ -20,9 +20,10 @@
   - [x] HW05 2022-9-11
   - [x] HW06 2022-9-12
   - [x] HW07 2022-9-14
-- Project ( 2 / 5 )
+- Project ( 4 / 5 )
   - [x] Hog 2022-9-15
   - [x] Cat 2022-9-16
-  - [ ] Ant
-  - [ ] Magic
+  - [x] Ant 2022-9-17
+    - not finish extra credit and optional problem, it's a little boring :)
+  - [x] Magic 2022-9-16
   - [ ] Scheme
