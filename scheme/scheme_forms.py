@@ -3,6 +3,7 @@ from scheme_utils import *
 from scheme_classes import *
 from scheme_builtins import *
 
+
 #################
 # Special Forms #
 #################
@@ -38,11 +39,20 @@ def do_define_form(expressions, env):
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        # print(f"LOG: first->{signature},rest->{expressions.rest}")
+        # print(f"LOG: eval of rest -> {scheme_eval(expressions.rest,env)}")
+        env.bindings[signature] = scheme_eval(expressions.rest.first, env)
+        return signature
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
-        "*** YOUR CODE HERE ***"
+        #  print("LOG:",signature.first,signature.rest,expressions.rest.first)
+        validate_formals(signature.rest)
+        procedure = LambdaProcedure(signature.rest, expressions.rest, env)
+        validate_procedure(procedure)
+        env.bindings[signature.first] = procedure
+        return signature.first
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Pair) else signature
@@ -59,6 +69,8 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    # print(f"LOG:{expressions}->{str(expressions)}")
+    return expressions.first
     # END PROBLEM 5
 
 
@@ -86,7 +98,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 
@@ -122,6 +134,26 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    # print(f"LOG:{expressions}")
+    #  validate_form(expressions,0)
+    evalued = None
+    if len(expressions) == 0:
+        return True
+    else:
+        evalued = scheme_eval(expressions.first, env)
+        if is_scheme_false(evalued):
+            return evalued
+        else:
+            to_evalue = expressions.rest
+            while to_evalue:
+                #      print(f"LOG: to_evalue->{to_evalue}")
+                evalued = scheme_eval(to_evalue.first, env)
+                #      print(f"LOG: evalued->{evalued}")
+                if is_scheme_false(evalued):
+                    return evalued
+                to_evalue = to_evalue.rest
+            return evalued
+
     # END PROBLEM 12
 
 
@@ -140,7 +172,23 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    evalued = None
+    if len(expressions) == 0:
+        return False
+    else:
+        evalued = scheme_eval(expressions.first, env)
+        if is_scheme_true(evalued):
+            return evalued
+        else:
+            to_evalue = expressions.rest
+            while to_evalue is not nil:
+                #      print(f"LOG: to_evalue->{to_evalue}")
+                evalued = scheme_eval(to_evalue.first, env)
+                #      print(f"LOG: evalued->{evalued}")
+                if is_scheme_true(evalued):
+                    return evalued
+                to_evalue = to_evalue.rest
+            return evalued
     # END PROBLEM 12
 
 
@@ -161,7 +209,10 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+            if clause.rest is nil:
+                return test
+            else:
+                return eval_all(clause.rest, env)
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -187,8 +238,37 @@ def make_let_frame(bindings, env):
         raise SchemeError('bad bindings list in let form')
     names = vals = nil
     # BEGIN PROBLEM 14
-    "*** YOUR CODE HERE ***"
+    print("LOG: make_let_frame",bindings,file=open("log",'w'))
+    print(f"LOG: bindings -> {bindings.first} {bindings.rest}",file=open("log",'a'))
+    validate_form(bindings.first,2,2)
+    names = Pair(bindings.first.first,nil)
+    vals = Pair(scheme_eval(bindings.first.rest.first,env),nil)
+    #scheme_append(names,Pair(bindings.first.first,nil))
+    #scheme_append(vals,Pair(scheme_eval(bindings.first.rest.first,env),nil))
+    print(f"LOG: names->{names},value->{vals}", file=open("log", 'a'))
+    bindings = bindings.rest
+
+    def add_to_list(lst,item):
+        print(f"LOG: call add to scheme list {lst} {item}",file=open("log",'a'))
+        while lst.rest:
+            lst = lst.rest
+        lst.rest = Pair(item,nil)
+        print(str(lst),file=open("log",'a'))
+
+
+    while bindings is not nil:
+        print(f"LOG: bindings in while-> {bindings.first} {bindings.rest}",file=open("log",'a'))
+        validate_form(bindings.first,2,2)
+        # names = Pair(names,Pair(bindings.first.first,nil))
+        add_to_list(names,bindings.first.first)
+        # print(f"LOG: {bindings.first.first} {bindings.first.rest}")
+        add_to_list(vals,scheme_eval(bindings.first.rest.first, env))
+       # print(f"LOG: in while names->{names},value->{vals}",file=open("log",'a'))
+        bindings = bindings.rest
     # END PROBLEM 14
+    validate_formals(names)
+    print(f"LOG: names->{names},value->{vals}", file=open("log", 'a'))
+
     return env.make_child_frame(names, vals)
 
 
@@ -209,6 +289,7 @@ def do_define_macro(expressions, env):
 def do_quasiquote_form(expressions, env):
     """Evaluate a quasiquote form with parameters EXPRESSIONS in
     Frame ENV."""
+
     def quasiquote_item(val, env, level):
         """Evaluate Scheme expression VAL that is nested at depth LEVEL in
         a quasiquote form in Frame ENV."""
@@ -244,6 +325,11 @@ def do_mu_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 11
     "*** YOUR CODE HERE ***"
+    # print(f"LOG:{expressions}")
+    procedure = MuProcedure(formals, expressions.rest)
+    #    print(f"LOG:{procedure}")
+    validate_procedure(procedure)
+    return procedure
     # END PROBLEM 11
 
 

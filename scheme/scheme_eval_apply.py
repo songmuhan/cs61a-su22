@@ -6,6 +6,7 @@ from ucb import main, trace
 
 import scheme_forms
 
+
 ##############
 # Eval/Apply #
 ##############
@@ -21,6 +22,7 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     4
     """
     # Evaluate atoms
+ #   print(f"LOG scheme_eval:{expr}")
     if scheme_symbolp(expr):
         return env.lookup(expr)
     elif self_evaluating(expr):
@@ -35,6 +37,14 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        # print("LOG: first->" , first, " second->",rest)
+        def scheme_eval_helper(expr):
+            return scheme_eval(expr, env)
+
+        my_operator = scheme_eval(first, env)
+        my_operands = rest.map(scheme_eval_helper)
+        # print("LOG: operator->", my_operator, " operands->", my_operands)
+        return scheme_apply(my_operator, my_operands, env)
         # END PROBLEM 3
 
 
@@ -43,24 +53,34 @@ def scheme_apply(procedure, args, env):
     Frame ENV, the current environment."""
     validate_procedure(procedure)
     if not isinstance(env, Frame):
-       assert False, "Not a Frame: {}".format(env)
+        assert False, "Not a Frame: {}".format(env)
     if isinstance(procedure, BuiltinProcedure):
         # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
+        arglst = []
+        while args:
+            arglst.append(args.first)
+            args = args.rest
+        #    print("LOG: arglst", arglst)
+        if procedure.need_env:
+            arglst.append(env)
         # END PROBLEM 2
         try:
             # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
+            return procedure.py_func(*arglst)
             # END PROBLEM 2
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
-        "*** YOUR CODE HERE ***"
+        # print("LOG: evalue lambda procedure",procedure.formals, procedure.body)
+        frame = procedure.env.make_child_frame(procedure.formals,args)
+        return eval_all(procedure.body,frame)
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
-        "*** YOUR CODE HERE ***"
+        #print("LOG: evaluate Mu procedure",procedure.formals,procedure.body,args)
+        frame = env.make_child_frame(procedure.formals,args)
+        return eval_all(procedure.body,frame)
         # END PROBLEM 11
     else:
         assert False, "Unexpected procedure: {}".format(procedure)
@@ -82,7 +102,15 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
-    return scheme_eval(expressions.first, env)  # replace this with lines of your own code
+ #   print(f"LOG:{expressions}")
+    result = None
+    if not expressions:
+        return None
+    while expressions:
+        result = scheme_eval(expressions.first,env)
+        expressions = expressions.rest
+    return result
+
     # END PROBLEM 6
 
 
@@ -111,6 +139,7 @@ def complete_apply(procedure, args, env):
 
 def optimize_tail_calls(unoptimized_scheme_eval):
     """Return a properly tail recursive version of an eval function."""
+
     def optimized_eval(expr, env, tail=False):
         """Evaluate Scheme expression EXPR in Frame ENV. If TAIL,
         return an Unevaluated containing an expression for further evaluation.
@@ -122,8 +151,8 @@ def optimize_tail_calls(unoptimized_scheme_eval):
         # BEGIN PROBLEM EC
         "*** YOUR CODE HERE ***"
         # END PROBLEM EC
-    return optimized_eval
 
+    return optimized_eval
 
 ################################################################
 # Uncomment the following line to apply tail call optimization #

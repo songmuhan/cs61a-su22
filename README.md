@@ -1,3 +1,8 @@
+# UCB CS61A Summer 2022 Answer
+
+- feel free to ask questions if you are stuck. I know that feeling, so I want to help you:)
+- and please let me know if this repo should be set to **private**.
+
 - Lab (13 / 13)
    - [x] Lab00 2022-8-15
    - [x] Lab01 2022-8-26
@@ -19,11 +24,13 @@
   - [x] HW04 2022-9-10
   - [x] HW05 2022-9-11
   - [x] HW06 2022-9-12
+    - concatenate is **not** a tail recursion
   - [x] HW07 2022-9-14
-- Project ( 4 / 5 )
+- Project ( 5 / 5 )
   - [x] Hog 2022-9-15
   - [x] Cat 2022-9-16
   - [x] Ant 2022-9-17
     - not finish extra credit and optional problem, it's a little boring :)
   - [x] Magic 2022-9-16
-  - [ ] Scheme
+  - [x] Scheme 2022-9-18
+    - not finish the extra (seems to be a little difficult) and optional (boring) problem

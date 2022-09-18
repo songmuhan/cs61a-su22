@@ -87,11 +87,12 @@ def validate_form(expr, min, max=float('inf')):
     """Check EXPR is a proper list whose length is at least MIN and no more
     than MAX (default: no maximum). Raises a SchemeError if this is not the
     case.
-
     >>> validate_form(read_line('(a b)'), 2)
     """
     if not scheme_listp(expr):
         raise SchemeError('badly formed expression: ' + repl_str(expr))
+   # print("LOG: validate_form expr:", expr, " len:", len(expr))
+    # pair override the len function
     length = len(expr)
     if length < min:
         raise SchemeError('too few operands in form')
