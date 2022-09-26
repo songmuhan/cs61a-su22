@@ -2,7 +2,7 @@
 
 - feel free to ask questions if you are stuck. I know that feeling, so I want to help you:)
 - and please let me know if this repo should be set to **private**.
-- look at [here](songmuhan.github.io) to know what I am going to learn.
+- look at [here](https://songmuhan.github.io) to know what I am going to learn.
 
 - Lab (13 / 13)
    - [x] Lab00 2022-8-15
